@@ -1,14 +1,16 @@
 import "@/app/globals.css";
-import { useState } from "react";
+import BudgetForm from "./components/BudgetForm";
+import FilterForm from "./components/FilterForm";
+import TableList from "./components/TableList";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
     <>
-      <div>하이</div>
+      <BudgetForm />
+      <FilterForm />
+      <TableList />
     </>
   );
-}
+};
 
 export default App;
