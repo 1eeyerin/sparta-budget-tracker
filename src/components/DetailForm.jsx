@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const defaultValues = {
@@ -26,7 +27,8 @@ const FormSchema = z.object({
   }),
 });
 
-const BudgetForm = () => {
+const DetailForm = () => {
+  const navigate = useNavigate();
   const form = useForm({ defaultValues, resolver: zodResolver(FormSchema) });
   const { control, handleSubmit, reset } = form;
 
@@ -95,17 +97,30 @@ const BudgetForm = () => {
             )}
           />
         </div>
-        <Button type="submit" className={styles.button}>
-          저장
-        </Button>
+        <div className={styles.buttons}>
+          <Button type="submit" className={styles.button}>
+            수정하기
+          </Button>
+          <Button type="button" className={styles.button} variant="destructive">
+            삭제하기
+          </Button>
+          <Button
+            type="button"
+            className={styles.button}
+            variant="secondary"
+            onClick={() => navigate(-1)}
+          >
+            뒤로가기
+          </Button>
+        </div>
       </form>
     </Form>
   );
 };
 
 const styles = {
-  formContainer: ["flex", "items-center", "mt-8", "mb-6"].join(" "),
-  formFields: ["w-full", "flex", "gap-6"].join(" "),
+  formContainer: ["mt-8", "mb-6"].join(" "),
+  formFields: ["w-full", "flex", "gap-6", "flex-wrap", "flex-col"].join(" "),
   formItem: [
     "items-center",
     "flex",
@@ -118,7 +133,8 @@ const styles = {
     " "
   ),
   errorMessage: ["absolute", "top-full", "mt-1"].join(" "),
+  buttons: ["flex", "gap-3"].join(" "),
   button: ["mt-6"].join(" "),
 };
 
-export default BudgetForm;
+export default DetailForm;
