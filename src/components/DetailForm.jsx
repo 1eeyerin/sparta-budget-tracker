@@ -14,13 +14,24 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const defaultValues = {
-  title: "",
+  date: "",
+  category: "",
+  price: "",
   description: "",
 };
 
 const FormSchema = z.object({
-  title: z.string().min(2, {
-    message: "제목을 2자 이상 작성해주세요",
+  date: z.string().min(1, {
+    message: "날짜를 입력해주세요",
+  }),
+  category: z.enum(
+    ["food", "household", "transport", "clothingAndBeauty", "others"],
+    {
+      message: "알맞은 지출 항목을 선택해주세요",
+    }
+  ),
+  price: z.number({
+    message: "지출 금액을 입력해주세요",
   }),
   description: z.string().min(2, {
     message: "내용을 2자 이상 작성해주세요",
@@ -42,7 +53,7 @@ const DetailForm = () => {
         <div className={styles.formFields}>
           <FormField
             control={control}
-            name="title"
+            name="date"
             render={({ field }) => (
               <FormItem className={styles.formItem}>
                 <FormLabel className={styles.formLabel}>날짜</FormLabel>
