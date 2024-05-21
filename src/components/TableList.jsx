@@ -1,3 +1,4 @@
+import { Badge } from "@/components/badge";
 import {
   Table,
   TableBody,
@@ -8,78 +9,45 @@ import {
   TableRow,
 } from "@/components/table";
 import { Link } from "react-router-dom";
+import { CATEGORIES } from "../constants";
+import { numberWithCommas } from "../utils";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
-
-const TableList = () => {
+const TableList = ({ posts }) => {
   return (
     <div className={styles.list}>
       <Table>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="w-[100px]">번호</TableHead>
+            <TableHead>지출 항목</TableHead>
+            <TableHead>날짜</TableHead>
+            <TableHead>지출 내용</TableHead>
+            <TableHead className="text-right">금액</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">
-                <Link to={`/detail/${invoice.invoice}`}>{invoice.invoice}</Link>
-              </TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
-              </TableCell>
-            </TableRow>
-          ))}
+          {posts.map((post, index) => {
+            const categoryNames = CATEGORIES.find(
+              (category) => category.id === post.category
+            );
+
+            return (
+              <TableRow key={post.id}>
+                <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableCell>
+                  <Badge>{categoryNames.name}</Badge>
+                </TableCell>
+                <TableCell>{post.date}</TableCell>
+                <TableCell>
+                  <Link to={`/detail/${post.id}`}>{post.description}</Link>
+                </TableCell>
+                <TableCell className="text-right">
+                  {numberWithCommas(post.price, "원")}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>

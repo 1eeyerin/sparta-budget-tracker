@@ -2,12 +2,12 @@ import BudgetForm from "../../components/BudgetForm";
 import FilterForm from "../../components/FilterForm";
 import TableList from "../../components/TableList";
 
-const HomePage = () => {
+const HomePage = ({ onSubmitForm, posts }) => {
   return (
     <>
-      <BudgetForm />
+      <BudgetForm onSubmitForm={onSubmitForm} />
       <FilterForm />
-      <TableList />
+      <TableList posts={posts} />
     </>
   );
 };
