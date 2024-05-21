@@ -17,9 +17,10 @@ import {
   SelectValue,
 } from "@/components/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CATEGORIES } from "constants";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { CATEGORIES, DEFAULT_VALUES } from "../constants";
 
 const categoryIds = CATEGORIES.map((category) => category.id);
 
@@ -43,16 +44,21 @@ const FormSchema = z.object({
   }),
 });
 
-const BudgetForm = ({ onSubmitForm }) => {
+const DetailForm = ({ post, onUpdate }) => {
+  const navigate = useNavigate();
   const form = useForm({
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: {
+      date: post.date,
+      category: post.category,
+      price: post.price,
+      description: post.description,
+    },
     resolver: zodResolver(FormSchema),
   });
-  const { control, handleSubmit, reset } = form;
+  const { control, handleSubmit } = form;
 
   const onSubmit = (values) => {
-    onSubmitForm(values);
-    reset();
+    onUpdate({ ...values, id: post.id });
   };
 
   return (
@@ -66,7 +72,11 @@ const BudgetForm = ({ onSubmitForm }) => {
               <FormItem className={styles.formItem}>
                 <FormLabel className={styles.formLabel}>날짜</FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} />
+                  <Input
+                    placeholder="제목을 입력해주세요"
+                    type="date"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className={styles.errorMessage} />
               </FormItem>
@@ -130,17 +140,30 @@ const BudgetForm = ({ onSubmitForm }) => {
             )}
           />
         </div>
-        <Button type="submit" className={styles.button}>
-          저장
-        </Button>
+        <div className={styles.buttons}>
+          <Button type="submit" className={styles.button}>
+            수정하기
+          </Button>
+          <Button type="button" className={styles.button} variant="destructive">
+            삭제하기
+          </Button>
+          <Button
+            type="button"
+            className={styles.button}
+            variant="secondary"
+            onClick={() => navigate(-1)}
+          >
+            뒤로가기
+          </Button>
+        </div>
       </form>
     </Form>
   );
 };
 
 const styles = {
-  formContainer: ["flex", "items-center", "mt-8", "mb-10", "gap-4"].join(" "),
-  formFields: ["w-full", "flex", "gap-4"].join(" "),
+  formContainer: ["mt-8", "mb-6"].join(" "),
+  formFields: ["w-full", "flex", "gap-6", "flex-wrap", "flex-col"].join(" "),
   formItem: [
     "items-center",
     "flex",
@@ -153,7 +176,8 @@ const styles = {
     " "
   ),
   errorMessage: ["absolute", "top-full", "mt-1"].join(" "),
-  button: ["mt-8"].join(" "),
+  buttons: ["flex", "gap-3"].join(" "),
+  button: ["mt-6"].join(" "),
 };
 
-export default BudgetForm;
+export default DetailForm;

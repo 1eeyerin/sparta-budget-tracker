@@ -1,11 +1,11 @@
 import "@/app/globals.css";
+import { Container } from "components/Layout";
+import { STORAGE_NAME } from "constants";
+import { Detail, Home } from "pages";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { getLocalStorage, setLocalStorage } from "utils";
 import { v4 as uuidv4 } from "uuid";
-import { Container } from "./components/Layout";
-import { STORAGE_NAME } from "./constants";
-import { DetailPage, HomePage } from "./pages";
-import { getLocalStorage, setLocalStorage } from "./utils";
 
 const getPostsFromLocalStorage = () => {
   return JSON.parse(getLocalStorage(STORAGE_NAME) || "[]");
@@ -18,13 +18,26 @@ const setPostsFromLocalStorage = (value) => {
 const App = () => {
   const [posts, setPosts] = useState(getPostsFromLocalStorage());
 
-  const onSubmitForm = (post) => {
+  const onSubmit = (post) => {
     setPosts((prev) => {
       const newPosts = [...prev, { ...post, id: uuidv4() }];
       setPostsFromLocalStorage(newPosts);
 
       return newPosts;
     });
+  };
+
+  const onUpdate = (post) => {
+    setPosts((prev) => {
+      const newPosts = prev.map((item) => (item.id === post.id ? post : item));
+      setPostsFromLocalStorage(newPosts);
+
+      return newPosts;
+    });
+  };
+
+  const getPost = (id) => {
+    return posts.find((post) => post.id === id);
   };
 
   return (
@@ -34,7 +47,7 @@ const App = () => {
           path="/"
           element={
             <Container>
-              <HomePage onSubmitForm={onSubmitForm} posts={posts} />
+              <Home onSubmit={onSubmit} posts={posts} />
             </Container>
           }
         />
@@ -42,7 +55,7 @@ const App = () => {
           path="/detail/:id"
           element={
             <Container>
-              <DetailPage posts={posts} />
+              <Detail getPost={getPost} onUpdate={onUpdate} />
             </Container>
           }
         />

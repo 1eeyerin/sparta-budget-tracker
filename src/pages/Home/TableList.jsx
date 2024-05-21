@@ -8,9 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/table";
+import { CATEGORIES } from "constants";
 import { Link } from "react-router-dom";
-import { CATEGORIES } from "../constants";
-import { numberWithCommas } from "../utils";
+import { numberWithCommas } from "utils";
 
 const TableList = ({ posts }) => {
   return (
