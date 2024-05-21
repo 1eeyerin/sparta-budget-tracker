@@ -1,11 +1,5 @@
-import { Outlet } from "react-router-dom";
-
-const Container = () => {
-  return (
-    <main className={styles.container}>
-      <Outlet />
-    </main>
-  );
+const Container = ({ children }) => {
+  return <main className={styles.container}>{children}</main>;
 };
 
 const styles = {

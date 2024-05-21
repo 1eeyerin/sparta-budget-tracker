@@ -1,15 +1,30 @@
 import "@/app/globals.css";
-import BudgetForm from "./components/BudgetForm";
-import FilterForm from "./components/FilterForm";
-import TableList from "./components/TableList";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Container } from "./components/Layout";
+import { DetailPage, HomePage } from "./pages";
 
 const App = () => {
   return (
-    <>
-      <BudgetForm />
-      <FilterForm />
-      <TableList />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Container>
+              <HomePage />
+            </Container>
+          }
+        />
+        <Route
+          path="/detail/:id"
+          element={
+            <Container>
+              <DetailPage />
+            </Container>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
