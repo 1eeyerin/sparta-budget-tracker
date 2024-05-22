@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/sparta-budget-tracker/",
   plugins: [react()],
   resolve: {
     alias: {
