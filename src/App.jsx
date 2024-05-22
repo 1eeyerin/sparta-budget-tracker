@@ -36,6 +36,15 @@ const App = () => {
     });
   };
 
+  const onDelete = (id) => {
+    setPosts((prev) => {
+      const newPosts = prev.filter((item) => item.id !== id);
+      setPostsFromLocalStorage(newPosts);
+
+      return newPosts;
+    });
+  };
+
   const getPost = (id) => {
     return posts.find((post) => post.id === id);
   };
@@ -55,7 +64,11 @@ const App = () => {
           path="/detail/:id"
           element={
             <Container>
-              <Detail getPost={getPost} onUpdate={onUpdate} />
+              <Detail
+                getPost={getPost}
+                onUpdate={onUpdate}
+                onDelete={onDelete}
+              />
             </Container>
           }
         />

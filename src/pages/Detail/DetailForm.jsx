@@ -44,20 +44,23 @@ const FormSchema = z.object({
   }),
 });
 
-const DetailForm = ({ post, onUpdate }) => {
+const DetailForm = ({ post, onUpdate, onDelete }) => {
   const navigate = useNavigate();
+
   const form = useForm({
     defaultValues: {
-      date: post.date,
-      category: post.category,
-      price: post.price,
-      description: post.description,
+      date: post?.date,
+      category: post?.category,
+      price: post?.price,
+      description: post?.description,
     },
     resolver: zodResolver(FormSchema),
   });
+
   const { control, handleSubmit } = form;
 
   const onSubmit = (values) => {
+    navigate(-1);
     onUpdate({ ...values, id: post.id });
   };
 
@@ -144,7 +147,15 @@ const DetailForm = ({ post, onUpdate }) => {
           <Button type="submit" className={styles.button}>
             수정하기
           </Button>
-          <Button type="button" className={styles.button} variant="destructive">
+          <Button
+            type="button"
+            className={styles.button}
+            variant="destructive"
+            onClick={() => {
+              navigate(-1);
+              onDelete(post.id);
+            }}
+          >
             삭제하기
           </Button>
           <Button
