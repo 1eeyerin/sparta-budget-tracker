@@ -12,4 +12,5 @@ export const DEFAULT_VALUES = {
   category: "",
 };
 
-export const STORAGE_NAME = "posts";
+export const POSTS_STORAGE_NAME = "posts";
+export const MONTH_STORAGE_NAME = "month";
