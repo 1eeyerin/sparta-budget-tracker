@@ -17,26 +17,19 @@ import {
   SelectValue,
 } from "@/components/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CATEGORIES, DEFAULT_VALUES } from "constants";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const defaultValues = {
-  date: "",
-  price: "",
-  description: "",
-  category: "",
-};
+const categoryIds = CATEGORIES.map((category) => category.id);
 
 const FormSchema = z.object({
   date: z.string().min(1, {
     message: "날짜를 입력해주세요",
   }),
-  category: z.enum(
-    ["food", "household", "transport", "clothingAndBeauty", "others"],
-    {
-      message: "알맞은 지출 항목을 선택해주세요",
-    }
-  ),
+  category: z.enum(categoryIds, {
+    message: "알맞은 지출 항목을 선택해주세요",
+  }),
   price: z
     .string()
     .regex(/^\d+$/, {
@@ -50,13 +43,15 @@ const FormSchema = z.object({
   }),
 });
 
-const BudgetForm = () => {
-  const form = useForm({ defaultValues, resolver: zodResolver(FormSchema) });
+const BudgetForm = ({ onSubmitForm }) => {
+  const form = useForm({
+    defaultValues: DEFAULT_VALUES,
+    resolver: zodResolver(FormSchema),
+  });
   const { control, handleSubmit, reset } = form;
 
   const onSubmit = (values) => {
-    console.log("🚀 ~ onSubmit ~ values:", values);
-    console.log("@@");
+    onSubmitForm(values);
     reset();
   };
 
@@ -98,7 +93,7 @@ const BudgetForm = () => {
                       <SelectItem value="household">생활용품</SelectItem>
                       <SelectItem value="transport">교통비</SelectItem>
                       <SelectItem value="clothingAndBeauty">
-                        의복/미용
+                        의류/미용
                       </SelectItem>
                       <SelectItem value="others">기타</SelectItem>
                     </SelectGroup>

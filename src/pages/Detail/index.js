@@ -1,2 +1,2 @@
-export * from "./DetailPage";
-export * from "./DetailPage.loader";
+export { default as Detail } from "./Detail";
+export { default as DetailForm } from "./DetailForm";
