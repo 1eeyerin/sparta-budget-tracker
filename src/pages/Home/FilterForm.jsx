@@ -1,16 +1,17 @@
-import { Button } from "@/components/button";
+import { Button } from "@/src/components/Button";
+import styled from "styled-components";
 
 const FilterForm = ({ onUpdate, month }) => {
   return (
-    <ul className={styles.list}>
+    <StyledForm>
       {Array.from({ length: 12 }).map((_, index) => {
         const currentMonth = index + 1;
 
         return (
           <li key={index}>
             <Button
+              fullWidth
               variant={month === currentMonth ? "" : "secondary"}
-              className={styles.button}
               onClick={() => onUpdate(currentMonth)}
             >
               {currentMonth}월
@@ -18,22 +19,19 @@ const FilterForm = ({ onUpdate, month }) => {
           </li>
         );
       })}
-    </ul>
+    </StyledForm>
   );
 };
 
-const styles = {
-  list: [
-    "p-6",
-    "grid",
-    "grid-cols-6",
-    "gap-8",
-    "rounded-lg",
-    "border",
-    "bg-card",
-    "shadow-sm",
-  ].join(" "),
-  button: ["w-full", "h-10", "font-medium", "text-sm"].join(" "),
-};
+const StyledForm = styled.ul`
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  display: grid;
+  gap: 32px;
+  padding: 24px;
+  background-color: var(--color-card);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--color-shadow-sm);
+`;
 
 export default FilterForm;

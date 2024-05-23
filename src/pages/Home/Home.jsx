@@ -1,7 +1,7 @@
-import { MONTH_STORAGE_NAME } from "constants";
-import { BudgetForm, FilterForm, TableList } from "pages/Home";
+import { MONTH_STORAGE_NAME } from "@/src/constants";
+import { BudgetForm, FilterForm, TableList } from "@/src/pages/Home";
+import { getLocalStorage, setLocalStorage } from "@/src/utils";
 import { useState } from "react";
-import { getLocalStorage, setLocalStorage } from "utils";
 
 const getMonthFromLocalStorage = () => {
   return JSON.parse(
@@ -24,10 +24,12 @@ const Home = ({ onSubmit, posts }) => {
   const getPosts = () => {
     if (month === 0) return posts;
 
-    return posts.filter((post) => {
-      const postDate = new Date(post.date);
-      return postDate.getMonth() + 1 === month;
-    });
+    return posts
+      .filter((post) => {
+        const postDate = new Date(post.date);
+        return postDate.getMonth() + 1 === month;
+      })
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
   };
 
   return (
