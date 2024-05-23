@@ -2,7 +2,7 @@
 
 - [x] 목업 추가
 - [x] 기능 추가
-- [x] styled-component 적용 (컴포넌트 내재화)
+- [x] tailwind -> styled-component로 변경
 - [ ] 디자인 시스템 컴포넌트 구축
 - [ ] shadcn ui 제거
 - [ ] react-hook-form 제거
