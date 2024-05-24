@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { colors } from "../styles/constants";
-import { hexToRGB } from "../utils";
+import { hexToRGB } from "@/utils";
+import { colors } from "@/styles/constants";
 
 const Table = styled.table`
   position: relative;
@@ -15,7 +15,6 @@ const Table = styled.table`
     ${(props) => props.className}
   }
 `;
-Table.displayName = "Table";
 
 const TableHeader = styled.thead`
   & tr {
@@ -23,7 +22,6 @@ const TableHeader = styled.thead`
     ${(props) => props.className}
   }
 `;
-TableHeader.displayName = "TableHeader";
 
 const TableBody = styled.tbody`
   & tr:last-child {
@@ -31,7 +29,6 @@ const TableBody = styled.tbody`
     ${(props) => props.className}
   }
 `;
-TableBody.displayName = "TableBody";
 
 const TableRow = styled.tr`
   border-bottom: 1px solid var(--color-border);
@@ -43,7 +40,6 @@ const TableRow = styled.tr`
 
   ${(props) => props.className}
 `;
-TableRow.displayName = "TableRow";
 
 const TableHead = styled.th`
   height: 48px;
@@ -55,7 +51,6 @@ const TableHead = styled.th`
 
   ${(props) => props.className}
 `;
-TableHead.displayName = "TableHead";
 
 const TableCell = styled.td`
   padding: 16px;
@@ -64,7 +59,6 @@ const TableCell = styled.td`
 
   ${(props) => props.className}
 `;
-TableCell.displayName = "TableCell";
 
 const TableCaption = styled.caption`
   margin-top: 16px;
@@ -75,7 +69,6 @@ const TableCaption = styled.caption`
 
   ${(props) => props.className}
 `;
-TableCaption.displayName = "TableCaption";
 
 export {
   Table,

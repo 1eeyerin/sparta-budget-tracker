@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ellipsisStyle } from "../styles/utils";
+import { ellipsisStyle } from "@/styles/utils";
 
 const FormField = ({ render, name, message, ...props }) => {
   return render({
@@ -11,13 +11,13 @@ const FormField = ({ render, name, message, ...props }) => {
   });
 };
 
-FormField.displayName = "FormField";
+const FormItem = ({ children, ...props }) => {
+  return <div {...props}>{children}</div>;
+};
 
 const FormMessage = ({ message = "" }) => {
   return <StyledMessage>{message}</StyledMessage>;
 };
-
-FormMessage.displayName = "FormMessage";
 
 const StyledMessage = styled.div`
   margin-top: 8px;
@@ -28,4 +28,4 @@ const StyledMessage = styled.div`
   ${ellipsisStyle(1)};
 `;
 
-export { FormField, FormMessage };
+export { FormField, FormItem, FormMessage };

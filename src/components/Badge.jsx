@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { colors } from "../styles/constants";
-import { hexToRGB } from "../utils";
+import { hexToRGB } from "@/utils";
+import { colors } from "@/styles/constants";
 
 const Badge = ({ className, variant = "default", ...props }) => {
   return <StyledBadge className={className} $variant={variant} {...props} />;
@@ -47,7 +47,5 @@ const StyledBadge = styled.div`
     }
   }}
 `;
-
-Badge.displayName = "Badge";
 
 export { Badge };

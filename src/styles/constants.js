@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { hexToRGB } from "../utils";
+import { hexToRGB } from "@/utils";
 
 export const colors = {
   primary: "#0f172a",

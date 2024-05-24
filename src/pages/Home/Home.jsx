@@ -1,7 +1,7 @@
-import { MONTH_STORAGE_NAME } from "@/src/constants";
-import { BudgetForm, FilterForm, TableList } from "@/src/pages/Home";
-import { getLocalStorage, setLocalStorage } from "@/src/utils";
 import { useState } from "react";
+import { getLocalStorage, setLocalStorage } from "@/utils";
+import { MONTH_STORAGE_NAME } from "@/constants";
+import { BudgetForm, FilterForm, TableList } from "@/pages/Home";
 
 const getMonthFromLocalStorage = () => {
   return JSON.parse(
