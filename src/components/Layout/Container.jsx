@@ -1,9 +1,15 @@
+import styled from "styled-components";
+
 const Container = ({ children }) => {
-  return <main className={styles.container}>{children}</main>;
+  return <StyledContainer>{children}</StyledContainer>;
 };
 
-const styles = {
-  container: ["max-w-5xl", "m-auto", "mb-12"].join(" "),
-};
+const StyledContainer = styled.main`
+  max-width: 1024px;
+  margin: 32px auto 48px;
+  padding: 0 3%;
+`;
+
+Container.displayName = "Container";
 
 export default Container;

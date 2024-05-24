@@ -1,10 +1,9 @@
-import "@/app/globals.css";
-import { Container } from "components/Layout";
-import { POSTS_STORAGE_NAME } from "constants";
-import { Detail, Home } from "pages";
+import { Container } from "@/src/components/Layout";
+import { POSTS_STORAGE_NAME } from "@/src/constants";
+import { Detail, Home } from "@/src/pages";
+import { getLocalStorage, setLocalStorage } from "@/src/utils";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { getLocalStorage, setLocalStorage } from "utils";
 import { v4 as uuidv4 } from "uuid";
 
 const getPostsFromLocalStorage = () => {

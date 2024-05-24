@@ -1,4 +1,4 @@
-import { Badge } from "@/components/badge";
+import { Badge } from "@/src/components/Badge";
 import {
   Table,
   TableBody,
@@ -7,23 +7,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/table";
-import { CATEGORIES } from "constants";
+} from "@/src/components/Table";
+import { CATEGORIES } from "@/src/constants";
+import { numberWithCommas } from "@/src/utils";
 import { Link } from "react-router-dom";
-import { numberWithCommas } from "utils";
+import styled from "styled-components";
 
 const TableList = ({ posts }) => {
   return (
-    <div className={styles.list}>
-      <Table>
+    <StSection>
+      <StTable>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">번호</TableHead>
+            <TableHead>번호</TableHead>
             <TableHead>지출 항목</TableHead>
             <TableHead>날짜</TableHead>
             <TableHead>지출 내용</TableHead>
-            <TableHead className="text-right">금액</TableHead>
+            <StTableHeadRight>금액</StTableHeadRight>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -34,7 +35,7 @@ const TableList = ({ posts }) => {
 
             return (
               <TableRow key={post.id}>
-                <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <Badge>{categoryNames.name}</Badge>
                 </TableCell>
@@ -42,28 +43,55 @@ const TableList = ({ posts }) => {
                 <TableCell>
                   <Link to={`/detail/${post.id}`}>{post.description}</Link>
                 </TableCell>
-                <TableCell className="text-right">
+                <StTableCellRight>
                   {numberWithCommas(post.price, "원")}
-                </TableCell>
+                </StTableCellRight>
               </TableRow>
             );
           })}
         </TableBody>
-      </Table>
-    </div>
+      </StTable>
+    </StSection>
   );
 };
 
-const styles = {
-  list: [
-    "mt-6",
-    "p-6",
-    "grid",
-    "rounded-lg",
-    "border",
-    "bg-card",
-    "shadow-sm",
-  ].join(" "),
-};
+const StTable = styled(Table)`
+  & th,
+  & td {
+    &:nth-child(1) {
+      width: 70px;
+    }
+    &:nth-child(2) {
+      width: 130px;
+    }
+    &:nth-child(3) {
+      width: 120px;
+    }
+    &:nth-child(4) {
+      width: calc(100% - 460px);
+    }
+    &:nth-child(5) {
+      width: 140px;
+    }
+  }
+`;
+
+const StTableHeadRight = styled(TableHead)`
+  text-align: right;
+`;
+
+const StTableCellRight = styled(TableCell)`
+  text-align: right;
+`;
+
+const StSection = styled.section`
+  gap: 32px;
+  padding: 24px;
+  background-color: var(--color-card);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--color-shadow-sm);
+  margin-top: 24px;
+`;
 
 export default TableList;

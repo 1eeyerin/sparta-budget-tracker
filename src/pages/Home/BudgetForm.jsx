@@ -1,159 +1,105 @@
-import { Button } from "@/components/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/form";
-import { Input } from "@/components/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/select";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CATEGORIES, DEFAULT_VALUES } from "constants";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { Button } from "@/src/components/Button";
+import { FormField, FormMessage } from "@/src/components/Form";
+import { Input } from "@/src/components/Input";
+import { Label } from "@/src/components/Label";
+import { Select, SelectOption } from "@/src/components/Select";
+import { CATEGORIES } from "@/src/constants";
+import useForm from "@/src/hooks/useForm";
+import { postSchema } from "@/src/schemas/postSchema";
+import styled from "styled-components";
 
-const categoryIds = CATEGORIES.map((category) => category.id);
-
-const FormSchema = z.object({
-  date: z.string().min(1, {
-    message: "날짜를 입력해주세요",
-  }),
-  category: z.enum(categoryIds, {
-    message: "알맞은 지출 항목을 선택해주세요",
-  }),
-  price: z
-    .string()
-    .regex(/^\d+$/, {
-      message: "지출 금액은 숫자로 입력해주세요",
-    })
-    .min(1, {
-      message: "지출 금액을 입력해주세요",
-    }),
-  description: z.string().min(2, {
-    message: "내용을 2자 이상 작성해주세요",
-  }),
-});
+const resolver = (formValues) => {
+  const { success, error } = postSchema.safeParse(formValues);
+  return success ? {} : error.flatten().fieldErrors;
+};
 
 const BudgetForm = ({ onSubmitForm }) => {
-  const form = useForm({
-    defaultValues: DEFAULT_VALUES,
-    resolver: zodResolver(FormSchema),
+  const { handleSubmit, formRef, message } = useForm({
+    resolver,
+    onSubmit: onSubmitForm,
   });
-  const { control, handleSubmit, reset } = form;
-
-  const onSubmit = (values) => {
-    onSubmitForm(values);
-    reset();
-  };
 
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
-        <div className={styles.formFields}>
-          <FormField
-            control={control}
-            name="date"
-            render={({ field }) => (
-              <FormItem className={styles.formItem}>
-                <FormLabel className={styles.formLabel}>날짜</FormLabel>
-                <FormControl>
-                  <Input type="date" {...field} />
-                </FormControl>
-                <FormMessage className={styles.errorMessage} />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="category"
-            render={({ field }) => (
-              <FormItem className={styles.formItem}>
-                <FormLabel className={styles.formLabel}>지출 항목</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="지출 항목" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="food">식비</SelectItem>
-                      <SelectItem value="household">생활용품</SelectItem>
-                      <SelectItem value="transport">교통비</SelectItem>
-                      <SelectItem value="clothingAndBeauty">
-                        의류/미용
-                      </SelectItem>
-                      <SelectItem value="others">기타</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-                <FormMessage className={styles.errorMessage} />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="price"
-            render={({ field }) => (
-              <FormItem className={styles.formItem}>
-                <FormLabel className={styles.formLabel}>금액</FormLabel>
-                <FormControl>
-                  <Input placeholder="지출 금액" type="number" {...field} />
-                </FormControl>
-                <FormMessage className={styles.errorMessage} />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className={styles.formItem}>
-                <FormLabel className={styles.formLabel}>내용</FormLabel>
-                <FormControl>
-                  <Input placeholder="지출 내용" {...field} />
-                </FormControl>
-                <FormMessage className={styles.errorMessage} />
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button type="submit" className={styles.button}>
-          저장
-        </Button>
-      </form>
-    </Form>
+    <StyledForm ref={formRef} onSubmit={handleSubmit}>
+      <StyledContainer>
+        <FormField
+          name="date"
+          message={message}
+          render={({ id, htmlFor, name, message }) => (
+            <FormFieldItem>
+              <Label htmlFor={htmlFor}>날짜</Label>
+              <Input id={id} name={name} type="date" placeholder="지출 항목" />
+              <FormMessage message={message} />
+            </FormFieldItem>
+          )}
+        />
+        <FormField
+          name="category"
+          message={message}
+          render={({ id, htmlFor, name, message }) => (
+            <FormFieldItem>
+              <Label htmlFor={htmlFor}>지출 항목</Label>
+              <Select id={id} name={name} title="지출 항목">
+                {CATEGORIES.map(({ id, name }) => (
+                  <SelectOption key={id} value={id} text={name} />
+                ))}
+              </Select>
+              <FormMessage message={message} />
+            </FormFieldItem>
+          )}
+        />
+        <FormField
+          name="price"
+          message={message}
+          render={({ id, htmlFor, name, message }) => (
+            <FormFieldItem>
+              <Label htmlFor={htmlFor}>지출 금액</Label>
+              <Input
+                id={id}
+                name={name}
+                placeholder="지출 금액"
+                type="number"
+              />
+              <FormMessage message={message} />
+            </FormFieldItem>
+          )}
+        />
+        <FormField
+          name="description"
+          message={message}
+          render={({ id, htmlFor, name, message }) => (
+            <FormFieldItem>
+              <Label htmlFor={htmlFor}>지출 내용</Label>
+              <Input id={id} name={name} placeholder="지출 내용" />
+              <FormMessage message={message} />
+            </FormFieldItem>
+          )}
+        />
+      </StyledContainer>
+      <StyledButton type="submit">저장</StyledButton>
+    </StyledForm>
   );
 };
 
-const styles = {
-  formContainer: ["flex", "items-center", "mt-8", "mb-10", "gap-4"].join(" "),
-  formFields: ["w-full", "flex", "gap-4"].join(" "),
-  formItem: [
-    "items-center",
-    "flex",
-    "justify-between",
-    "w-full",
-    "flex-wrap",
-    "relative",
-  ].join(" "),
-  formLabel: ["flex-shrink-0", "mr-6", "text-sm", "font-medium", "mb-1"].join(
-    " "
-  ),
-  errorMessage: ["absolute", "top-full", "mt-1"].join(" "),
-  button: ["mt-8"].join(" "),
-};
+const FormFieldItem = styled.div`
+  flex-grow: 2;
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: 32px;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+`;
+
+const StyledContainer = styled.div`
+  flex-grow: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+`;
 
 export default BudgetForm;
