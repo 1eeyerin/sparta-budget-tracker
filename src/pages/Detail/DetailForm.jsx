@@ -14,7 +14,7 @@ const resolver = (formValues) => {
   return success ? {} : error.flatten().fieldErrors;
 };
 
-const DetailForm = ({ post, onUpdate, onDelete }) => {
+const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
   const navigate = useNavigate();
 
   const { handleSubmit, formRef, message } = useForm({
