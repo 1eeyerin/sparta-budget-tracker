@@ -13,10 +13,10 @@ import {
   TableRow,
 } from "@/components/Table";
 
-const TableList = ({ posts }) => {
+const ExpenseTable = ({ posts }) => {
   return (
-    <StSection>
-      <StTable>
+    <StyledSection>
+      <StyledTable>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
@@ -24,7 +24,7 @@ const TableList = ({ posts }) => {
             <TableHead>지출 항목</TableHead>
             <TableHead>날짜</TableHead>
             <TableHead>지출 내용</TableHead>
-            <StTableHeadRight>금액</StTableHeadRight>
+            <StyledTableHeadRight>금액</StyledTableHeadRight>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -43,19 +43,29 @@ const TableList = ({ posts }) => {
                 <TableCell>
                   <Link to={`/detail/${post.id}`}>{post.description}</Link>
                 </TableCell>
-                <StTableCellRight>
+                <StyledTableCellRight>
                   {numberWithCommas(post.price, "원")}
-                </StTableCellRight>
+                </StyledTableCellRight>
               </TableRow>
             );
           })}
         </TableBody>
-      </StTable>
-    </StSection>
+      </StyledTable>
+    </StyledSection>
   );
 };
 
-const StTable = styled(Table)`
+const StyledSection = styled.section`
+  gap: 32px;
+  padding: 24px;
+  background-color: var(--color-card);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--color-shadow-sm);
+  margin-top: 24px;
+`;
+
+const StyledTable = styled(Table)`
   & th,
   & td {
     &:nth-child(1) {
@@ -76,22 +86,12 @@ const StTable = styled(Table)`
   }
 `;
 
-const StTableHeadRight = styled(TableHead)`
+const StyledTableHeadRight = styled(TableHead)`
   text-align: right;
 `;
 
-const StTableCellRight = styled(TableCell)`
+const StyledTableCellRight = styled(TableCell)`
   text-align: right;
 `;
 
-const StSection = styled.section`
-  gap: 32px;
-  padding: 24px;
-  background-color: var(--color-card);
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--color-shadow-sm);
-  margin-top: 24px;
-`;
-
-export default TableList;
+export default ExpenseTable;

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Button } from "@/components/Button";
 
-const FilterForm = ({ onUpdate, month }) => {
+const MonthlyFilter = ({ onUpdate, month }) => {
+  //TODO: onClick 이벤트를 적게 전달하는 방법? 캡쳐링 버블링
+
   return (
     <StyledForm>
       {Array.from({ length: 12 }).map((_, index) => {
@@ -34,4 +36,4 @@ const StyledForm = styled.ul`
   box-shadow: var(--color-shadow-sm);
 `;
 
-export default FilterForm;
+export default MonthlyFilter;
