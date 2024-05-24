@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getLocalStorage, setLocalStorage } from "@/utils";
 import { MONTH_STORAGE_NAME } from "@/constants";
-import { BudgetForm, FilterForm, TableList } from "@/pages/Home";
+import { ExpenseForm, FilterForm, TableList } from "@/pages/Home";
 
 const getMonthFromLocalStorage = () => {
   return JSON.parse(
@@ -34,7 +34,7 @@ const Home = ({ onSubmit, posts }) => {
 
   return (
     <>
-      <BudgetForm onSubmitForm={onSubmit} />
+      <ExpenseForm onSubmitForm={onSubmit} />
       <FilterForm onUpdate={updatePostsByMonth} month={month} />
       <TableList posts={getPosts()} />
     </>

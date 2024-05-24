@@ -13,7 +13,7 @@ const resolver = (formValues) => {
   return success ? {} : error.flatten().fieldErrors;
 };
 
-const BudgetForm = ({ onSubmitForm }) => {
+const ExpenseForm = ({ onSubmitForm }) => {
   const { handleSubmit, formRef, message } = useForm({
     resolver,
     onSubmit: onSubmitForm,
@@ -102,4 +102,4 @@ const StyledContainer = styled.div`
   gap: 16px;
 `;
 
-export default BudgetForm;
+export default ExpenseForm;

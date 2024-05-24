@@ -49,7 +49,7 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter basename="/sparta-budget-tracker/">
+    <BrowserRouter basename="/sparta-expense-manager/">
       <Routes>
         <Route
           path="/"
