@@ -1,12 +1,12 @@
-import { Button } from "@/src/components/Button";
-import { FormField, FormMessage } from "@/src/components/Form";
-import { Input } from "@/src/components/Input";
-import { Label } from "@/src/components/Label";
-import { Select, SelectOption } from "@/src/components/Select";
-import { CATEGORIES } from "@/src/constants";
-import useForm from "@/src/hooks/useForm";
-import { postSchema } from "@/src/schemas/postSchema";
 import styled from "styled-components";
+import useForm from "@/hooks/useForm";
+import { postSchema } from "@/schemas/postSchema";
+import { CATEGORIES } from "@/constants";
+import { Button } from "@/components/Button";
+import { FormField, FormItem, FormMessage } from "@/components/Form";
+import { Input } from "@/components/Input";
+import { Label } from "@/components/Label";
+import { Select, SelectOption } from "@/components/Select";
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
@@ -81,8 +81,8 @@ const BudgetForm = ({ onSubmitForm }) => {
   );
 };
 
-const FormFieldItem = styled.div`
-  flex-grow: 2;
+const FormFieldItem = styled(FormItem)`
+  width: 100%;
 `;
 
 const StyledButton = styled(Button)`
@@ -92,7 +92,7 @@ const StyledButton = styled(Button)`
 const StyledForm = styled.form`
   display: flex;
   gap: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 `;
 
 const StyledContainer = styled.div`

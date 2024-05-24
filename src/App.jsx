@@ -1,10 +1,10 @@
-import { Container } from "@/src/components/Layout";
-import { POSTS_STORAGE_NAME } from "@/src/constants";
-import { Detail, Home } from "@/src/pages";
-import { getLocalStorage, setLocalStorage } from "@/src/utils";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { getLocalStorage, setLocalStorage } from "@/utils";
+import { POSTS_STORAGE_NAME } from "@/constants";
+import { Detail, Home } from "@/pages";
+import { Container } from "@/components/Layout";
 
 const getPostsFromLocalStorage = () => {
   return JSON.parse(getLocalStorage(POSTS_STORAGE_NAME) || "[]");

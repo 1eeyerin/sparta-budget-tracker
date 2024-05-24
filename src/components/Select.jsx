@@ -10,8 +10,6 @@ const Select = ({ children, title, ...props }) => {
   );
 };
 
-Select.displayName = "Select";
-
 const SelectOption = ({ value, text, ...props }) => {
   return (
     <option value={value} {...props}>
@@ -19,8 +17,6 @@ const SelectOption = ({ value, text, ...props }) => {
     </option>
   );
 };
-
-SelectOption.displayName = "SelectOption";
 
 const StyledSelect = styled.select`
   border: 1px solid #e2e8f0;

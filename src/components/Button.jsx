@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import styled, { css } from "styled-components";
-import { colors } from "../styles/constants";
-import { hexToRGB } from "../utils";
+import { hexToRGB } from "@/utils";
+import { colors } from "@/styles/constants";
 
 const Button = forwardRef(
   (

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CATEGORIES } from "../constants";
+import { CATEGORIES } from "@/constants";
 
 const categoryIds = CATEGORIES.map((category) => category.id);
 

@@ -1,13 +1,13 @@
-import { Button } from "@/src/components/Button";
-import { FormField, FormMessage } from "@/src/components/Form";
-import { Input } from "@/src/components/Input";
-import { Label } from "@/src/components/Label";
-import { Select, SelectOption } from "@/src/components/Select";
-import { CATEGORIES } from "@/src/constants";
-import useForm from "@/src/hooks/useForm";
-import { postSchema } from "@/src/schemas/postSchema";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import useForm from "@/hooks/useForm";
+import { postSchema } from "@/schemas/postSchema";
+import { CATEGORIES } from "@/constants";
+import { Button } from "@/components/Button";
+import { FormField, FormItem, FormMessage } from "@/components/Form";
+import { Input } from "@/components/Input";
+import { Label } from "@/components/Label";
+import { Select, SelectOption } from "@/components/Select";
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
@@ -31,7 +31,7 @@ const DetailForm = ({ post, onUpdate, onDelete }) => {
         name="date"
         message={message}
         render={({ id, htmlFor, name, message }) => (
-          <>
+          <FormItem>
             <Label htmlFor={htmlFor}>날짜</Label>
             <Input
               id={id}
@@ -41,14 +41,14 @@ const DetailForm = ({ post, onUpdate, onDelete }) => {
               defaultValue={post.date}
             />
             <FormMessage message={message} />
-          </>
+          </FormItem>
         )}
       />
       <FormField
         name="category"
         message={message}
         render={({ id, htmlFor, name, message }) => (
-          <>
+          <FormItem>
             <Label htmlFor={htmlFor}>지출 항목</Label>
             <Select
               id={id}
@@ -61,14 +61,14 @@ const DetailForm = ({ post, onUpdate, onDelete }) => {
               ))}
             </Select>
             <FormMessage message={message} />
-          </>
+          </FormItem>
         )}
       />
       <FormField
         name="price"
         message={message}
         render={({ id, htmlFor, name, message }) => (
-          <>
+          <FormItem>
             <Label htmlFor={htmlFor}>지출 금액</Label>
             <Input
               id={id}
@@ -78,14 +78,14 @@ const DetailForm = ({ post, onUpdate, onDelete }) => {
               defaultValue={post.price}
             />
             <FormMessage message={message} />
-          </>
+          </FormItem>
         )}
       />
       <FormField
         name="description"
         message={message}
         render={({ id, htmlFor, name, message }) => (
-          <>
+          <FormItem>
             <Label htmlFor={htmlFor}>지출 내용</Label>
             <Input
               id={id}
@@ -94,7 +94,7 @@ const DetailForm = ({ post, onUpdate, onDelete }) => {
               defaultValue={post.description}
             />
             <FormMessage message={message} />
-          </>
+          </FormItem>
         )}
       />
       <StyledButtonGroup>

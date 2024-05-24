@@ -2,6 +2,7 @@ export * from "./localStorage";
 
 const regExp = /\B(?=(\d{3})+(?!\d))/g;
 
+// TODO : 정리요망
 export const numberWithCommas = (num, currency = "") => {
   const intNum = parseInt(num, 10);
 

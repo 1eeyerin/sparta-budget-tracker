@@ -1,4 +1,8 @@
-import { Badge } from "@/src/components/Badge";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { numberWithCommas } from "@/utils";
+import { CATEGORIES } from "@/constants";
+import { Badge } from "@/components/Badge";
 import {
   Table,
   TableBody,
@@ -7,11 +11,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/Table";
-import { CATEGORIES } from "@/src/constants";
-import { numberWithCommas } from "@/src/utils";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+} from "@/components/Table";
 
 const TableList = ({ posts }) => {
   return (
