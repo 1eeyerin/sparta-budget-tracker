@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getLocalStorage, setLocalStorage } from "@/utils";
@@ -18,35 +18,22 @@ const App = () => {
   const [posts, setPosts] = useState(getPostsFromLocalStorage());
 
   const onSubmit = (post) => {
-    setPosts((prev) => {
-      const newPosts = [...prev, { ...post, id: uuidv4() }];
-      setPostsFromLocalStorage(newPosts);
-
-      return newPosts;
-    });
+    setPosts((prev) => [...prev, { ...post, id: uuidv4() }]);
   };
 
   const onUpdate = (post) => {
-    setPosts((prev) => {
-      const newPosts = prev.map((item) => (item.id === post.id ? post : item));
-      setPostsFromLocalStorage(newPosts);
-
-      return newPosts;
-    });
+    setPosts((prev) => prev.map((item) => (item.id === post.id ? post : item)));
   };
 
   const onDelete = (id) => {
-    setPosts((prev) => {
-      const newPosts = prev.filter((item) => item.id !== id);
-      setPostsFromLocalStorage(newPosts);
-
-      return newPosts;
-    });
+    setPosts((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const getPost = (id) => {
-    return posts.find((post) => post.id === id);
-  };
+  const getPost = (id) => posts.find((post) => post.id === id);
+
+  useEffect(() => {
+    setPostsFromLocalStorage(posts);
+  }, [posts]);
 
   return (
     <BrowserRouter basename="/sparta-expense-manager/">

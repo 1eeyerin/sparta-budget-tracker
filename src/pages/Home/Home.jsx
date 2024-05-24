@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getLocalStorage, setLocalStorage } from "@/utils";
 import { MONTH_STORAGE_NAME } from "@/constants";
 import { ExpenseForm, MonthlyFilter, ExpenseTable } from "@/pages/Home";
@@ -18,7 +18,6 @@ const Home = ({ onSubmit, posts }) => {
 
   const updatePostsByMonth = (month) => {
     setMonth(month);
-    setMonthFromLocalStorage(month);
   };
 
   const getPosts = () => {
@@ -31,6 +30,10 @@ const Home = ({ onSubmit, posts }) => {
       })
       .sort((a, b) => new Date(b.date) - new Date(a.date));
   };
+
+  useEffect(() => {
+    setMonthFromLocalStorage(month);
+  }, [month]);
 
   return (
     <>

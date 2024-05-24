@@ -102,6 +102,8 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
         <Button
           variant="destructive"
           onClick={() => {
+            if (!confirm("삭제하실건가요? 🥲")) return;
+
             navigate(-1);
             onDelete(post.id);
           }}
