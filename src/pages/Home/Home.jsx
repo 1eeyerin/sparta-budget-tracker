@@ -5,17 +5,6 @@ import ExpenseForm from './ExpenseForm';
 import ExpenseTable from './ExpenseTable';
 import MonthlyFilter from './MonthlyFilter';
 
-const getPosts = (month, posts) => {
-  if (month === 0) return posts;
-
-  return posts
-    .filter((post) => {
-      const postDate = new Date(post.date);
-      return postDate.getMonth() + 1 === month;
-    })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-};
-
 const Home = ({ onSubmit, posts }) => {
   const [month, setMonth] = useState(
     getLocalStorage(MONTH_STORAGE_NAME) || new Date().getMonth() + 1,
@@ -39,6 +28,17 @@ const Home = ({ onSubmit, posts }) => {
       <ExpenseTable posts={getPosts(month, posts)} />
     </>
   );
+};
+
+const getPosts = (month, posts) => {
+  if (month === 0) return posts;
+
+  return posts
+    .filter((post) => {
+      const postDate = new Date(post.date);
+      return postDate.getMonth() + 1 === month;
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 };
 
 export default Home;
