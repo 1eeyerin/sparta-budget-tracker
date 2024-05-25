@@ -69,16 +69,16 @@ const StyledTable = styled(Table)`
   & th,
   & td {
     &:nth-child(1) {
-      width: 70px;
+      width: 60px;
     }
     &:nth-child(2) {
-      width: 130px;
+      width: 110px;
     }
     &:nth-child(3) {
-      width: 120px;
+      width: 130px;
     }
     &:nth-child(4) {
-      width: calc(100% - 460px);
+      width: calc(100% - 480px);
     }
     &:nth-child(5) {
       width: 140px;

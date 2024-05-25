@@ -6,14 +6,7 @@ const Table = styled.table`
   position: relative;
   width: 100%;
   overflow: auto;
-
-  & > table {
-    width: 100%;
-    caption-side: bottom;
-    text-align: left;
-    font-size: 12px;
-    ${(props) => props.className}
-  }
+  table-layout: fixed;
 `;
 
 const TableHeader = styled.thead`
@@ -56,6 +49,9 @@ const TableCell = styled.td`
   padding: 16px;
   font-size: 14px;
   line-height: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 
   ${(props) => props.className}
 `;
