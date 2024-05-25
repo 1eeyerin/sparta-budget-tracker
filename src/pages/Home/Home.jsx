@@ -21,8 +21,11 @@ const Home = ({ onSubmit, posts }) => {
     getLocalStorage(MONTH_STORAGE_NAME) || new Date().getMonth() + 1,
   );
 
-  const updatePostsByMonth = (number) => {
-    setMonth(number);
+  const updatePostsByMonth = (event) => {
+    const dataMonth = parseInt(event.target.dataset.month, 10);
+    if (!dataMonth) return;
+
+    setMonth(dataMonth);
   };
 
   useEffect(() => {

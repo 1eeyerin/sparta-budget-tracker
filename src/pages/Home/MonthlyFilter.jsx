@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { Button } from '@/components/Button';
 
-// TODO: onClick 이벤트를 적게 전달하는 방법? 캡쳐링 버블링
 const MonthlyFilter = ({ onUpdate, month }) => {
   return (
-    <StyledForm>
+    <StyledForm onClick={onUpdate}>
       {Array.from({ length: 12 }).map((_, index) => {
         const currentMonth = index + 1;
 
@@ -12,8 +11,8 @@ const MonthlyFilter = ({ onUpdate, month }) => {
           <li key={currentMonth}>
             <Button
               fullWidth
+              data-month={currentMonth}
               variant={month === currentMonth ? '' : 'secondary'}
-              onClick={() => onUpdate(currentMonth)}
             >
               {currentMonth}월
             </Button>
