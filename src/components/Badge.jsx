@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
-import { hexToRGB } from "@/utils";
-import { colors } from "@/styles/constants";
+import styled, { css } from 'styled-components';
+import { hexToRGB } from '@/utils';
+import { colors } from '@/styles/constants';
 
-const Badge = ({ className, variant = "default", ...props }) => {
+const Badge = ({ className, variant = 'default', ...props }) => {
   return <StyledBadge className={className} $variant={variant} {...props} />;
 };
 
@@ -20,7 +20,7 @@ const StyledBadge = styled.div`
 
   ${(props) => {
     switch (props.$variant) {
-      case "secondary":
+      case 'secondary':
         return css`
           background-color: var(--color-secondary);
           color: var(--color-secondary-foreground);
@@ -28,7 +28,7 @@ const StyledBadge = styled.div`
             background-color: ${hexToRGB(colors.secondary, 0.8)};
           }
         `;
-      case "destructive":
+      case 'destructive':
         return css`
           background-color: var(--color-destructive);
           color: var(--color-destructive-foreground);

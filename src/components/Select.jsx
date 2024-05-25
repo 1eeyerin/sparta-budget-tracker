@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Select = ({ children, title, ...props }) => {
   return (
@@ -27,7 +27,7 @@ const StyledSelect = styled.select`
   line-height: 20px;
   margin-top: 8px;
   width: 100%;
-  background: #ffffff url("src/svg/arrow-down.svg") no-repeat right 12px center/
+  background: #ffffff url('src/svg/arrow-down.svg') no-repeat right 12px center/
     16px;
   -webkit-appearance: none;
   -moz-appearance: none;

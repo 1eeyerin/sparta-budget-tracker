@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { getLocalStorage, setLocalStorage } from "@/utils";
-import { POSTS_STORAGE_NAME } from "@/constants";
-import { Detail, Home } from "@/pages";
-import { Container } from "@/components/Layout";
-
-const getPostsFromLocalStorage = () => {
-  return JSON.parse(getLocalStorage(POSTS_STORAGE_NAME) || "[]");
-};
-
-const setPostsFromLocalStorage = (value) => {
-  setLocalStorage(POSTS_STORAGE_NAME, JSON.stringify(value));
-};
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { getLocalStorage, setLocalStorage } from '@/utils';
+import { POSTS_STORAGE_NAME } from '@/constants';
+import { Detail, Home } from '@/pages';
+import { Container } from '@/components/Layout';
 
 const App = () => {
-  const [posts, setPosts] = useState(getPostsFromLocalStorage());
+  const [posts, setPosts] = useState(getLocalStorage(POSTS_STORAGE_NAME) || []);
 
   const onSubmit = (post) => {
     setPosts((prev) => [...prev, { ...post, id: uuidv4() }]);
@@ -32,7 +24,7 @@ const App = () => {
   const getPost = (id) => posts.find((post) => post.id === id);
 
   useEffect(() => {
-    setPostsFromLocalStorage(posts);
+    setLocalStorage(POSTS_STORAGE_NAME, posts);
   }, [posts]);
 
   return (

@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-import { hexToRGB } from "@/utils";
-import { colors, constants } from "./constants";
+import { createGlobalStyle } from 'styled-components';
+import { hexToRGB } from '@/utils';
+import { colors, constants } from './constants';
 
 const GlobalStyles = createGlobalStyle`
 ${constants};

@@ -1,19 +1,18 @@
-import styled from "styled-components";
-import { Button } from "@/components/Button";
+import styled from 'styled-components';
+import { Button } from '@/components/Button';
 
+// TODO: onClick 이벤트를 적게 전달하는 방법? 캡쳐링 버블링
 const MonthlyFilter = ({ onUpdate, month }) => {
-  //TODO: onClick 이벤트를 적게 전달하는 방법? 캡쳐링 버블링
-
   return (
     <StyledForm>
       {Array.from({ length: 12 }).map((_, index) => {
         const currentMonth = index + 1;
 
         return (
-          <li key={index}>
+          <li key={currentMonth}>
             <Button
               fullWidth
-              variant={month === currentMonth ? "" : "secondary"}
+              variant={month === currentMonth ? '' : 'secondary'}
               onClick={() => onUpdate(currentMonth)}
             >
               {currentMonth}월

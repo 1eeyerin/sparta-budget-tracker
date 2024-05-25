@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import useForm from "@/hooks/useForm";
-import { postSchema } from "@/schemas/postSchema";
-import { CATEGORIES } from "@/constants";
-import { Button } from "@/components/Button";
-import { FormField, FormItem, FormMessage } from "@/components/Form";
-import { Input } from "@/components/Input";
-import { Label } from "@/components/Label";
-import { Select, SelectOption } from "@/components/Select";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import useForm from '@/hooks/useForm';
+import postSchema from '@/schemas/postSchema';
+import { CATEGORIES } from '@/constants';
+import { Button } from '@/components/Button';
+import { FormField, FormItem, FormMessage } from '@/components/Form';
+import { Input } from '@/components/Input';
+import { Label } from '@/components/Label';
+import { Select, SelectOption } from '@/components/Select';
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
@@ -17,7 +17,11 @@ const resolver = (formValues) => {
 const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
   const navigate = useNavigate();
 
-  const { handleSubmit, formRef, message } = useForm({
+  const {
+    handleSubmit,
+    formRef,
+    message: errorMessage,
+  } = useForm({
     resolver,
     onSubmit: (values) => {
       navigate(-1);
@@ -29,7 +33,7 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
     <StyledForm ref={formRef} onSubmit={handleSubmit}>
       <FormField
         name="date"
-        message={message}
+        message={errorMessage}
         render={({ id, htmlFor, name, message }) => (
           <FormItem>
             <Label htmlFor={htmlFor}>날짜</Label>
@@ -46,7 +50,7 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
       />
       <FormField
         name="category"
-        message={message}
+        message={errorMessage}
         render={({ id, htmlFor, name, message }) => (
           <FormItem>
             <Label htmlFor={htmlFor}>지출 항목</Label>
@@ -56,8 +60,8 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
               title="지출 항목"
               defaultValue={post.category}
             >
-              {CATEGORIES.map(({ id, name }) => (
-                <SelectOption key={id} value={id} text={name} />
+              {CATEGORIES.map(({ id: cateId, name: cateName }) => (
+                <SelectOption key={cateId} value={cateId} text={cateName} />
               ))}
             </Select>
             <FormMessage message={message} />
@@ -66,7 +70,7 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
       />
       <FormField
         name="price"
-        message={message}
+        message={errorMessage}
         render={({ id, htmlFor, name, message }) => (
           <FormItem>
             <Label htmlFor={htmlFor}>지출 금액</Label>
@@ -83,7 +87,7 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
       />
       <FormField
         name="description"
-        message={message}
+        message={errorMessage}
         render={({ id, htmlFor, name, message }) => (
           <FormItem>
             <Label htmlFor={htmlFor}>지출 내용</Label>
@@ -102,7 +106,7 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
         <Button
           variant="destructive"
           onClick={() => {
-            if (!confirm("삭제하실건가요? 🥲")) return;
+            if (!confirm('삭제하실건가요? 🥲')) return;
 
             navigate(-1);
             onDelete(post.id);

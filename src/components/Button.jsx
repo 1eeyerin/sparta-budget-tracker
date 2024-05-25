@@ -1,20 +1,20 @@
-import { forwardRef } from "react";
-import styled, { css } from "styled-components";
-import { hexToRGB } from "@/utils";
-import { colors } from "@/styles/constants";
+import { forwardRef } from 'react';
+import styled, { css } from 'styled-components';
+import { hexToRGB } from '@/utils';
+import { colors } from '@/styles/constants';
 
 const Button = forwardRef(
   (
     {
       className,
-      type = "button",
-      variant = "default",
-      size = "default",
+      type = 'button',
+      variant = 'default',
+      size = 'default',
       fullWidth = false,
       href,
       ...props
     },
-    ref
+    ref,
   ) => {
     const Comp = href ? StyledLink : StyledButton;
     return (
@@ -28,7 +28,7 @@ const Button = forwardRef(
         {...props}
       />
     );
-  }
+  },
 );
 
 const baseStyles = css`
@@ -77,16 +77,16 @@ const StyledButton = styled.button`
   ${baseStyles}
   ${(props) => variantStyles[props.$variant] || variantStyles.default}
   ${(props) => sizeStyles[props.$size] || sizeStyles.default}
-  ${(props) => props.$fullWidth && "width: 100%;"}
+  ${(props) => props.$fullWidth && 'width: 100%;'}
 `;
 
 const StyledLink = styled.a`
   ${baseStyles}
   ${(props) => variantStyles[props.$variant] || variantStyles.default}
   ${(props) => sizeStyles[props.$size] || sizeStyles.default}
-  ${(props) => props.$fullWidth && "width: 100%;"}
+  ${(props) => props.$fullWidth && 'width: 100%;'}
 `;
 
-Button.displayName = "Button";
+Button.displayName = 'Button';
 
 export { Button };

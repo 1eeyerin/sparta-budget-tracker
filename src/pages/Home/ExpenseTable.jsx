@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { numberWithCommas } from "@/utils";
-import { CATEGORIES } from "@/constants";
-import { Badge } from "@/components/Badge";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { numberWithCommas } from '@/utils';
+import { CATEGORIES } from '@/constants';
+import { Badge } from '@/components/Badge';
 import {
   Table,
   TableBody,
@@ -11,7 +11,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/Table";
+} from '@/components/Table';
 
 const ExpenseTable = ({ posts }) => {
   return (
@@ -30,7 +30,7 @@ const ExpenseTable = ({ posts }) => {
         <TableBody>
           {posts.map((post, index) => {
             const categoryNames = CATEGORIES.find(
-              (category) => category.id === post.category
+              (category) => category.id === post.category,
             );
 
             return (
@@ -44,7 +44,7 @@ const ExpenseTable = ({ posts }) => {
                   <Link to={`/detail/${post.id}`}>{post.description}</Link>
                 </TableCell>
                 <StyledTableCellRight>
-                  {numberWithCommas(post.price, "원")}
+                  {numberWithCommas(post.price, '원')}
                 </StyledTableCellRight>
               </TableRow>
             );

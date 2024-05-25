@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
-import { DetailForm } from "@/pages/Detail";
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import DetailForm from './DetailForm';
 
 const Detail = ({ getPost, onUpdate, onDelete }) => {
   const { id } = useParams();
