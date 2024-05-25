@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { hexToRGB } from '@/utils';
+import { hexToRGB } from '@/styles/utils';
 import { colors, constants } from './constants';
 
 const GlobalStyles = createGlobalStyle`

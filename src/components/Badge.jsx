@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { hexToRGB } from '@/utils';
 import { colors } from '@/styles/constants';
+import { hexToRGB } from '@/styles/utils';
 
 const Badge = ({ className, variant = 'default', ...props }) => {
   return <StyledBadge className={className} $variant={variant} {...props} />;

@@ -6,12 +6,12 @@ const Input = forwardRef(({ className, type, ...props }, ref) => {
 });
 
 const StyledInput = styled.input`
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  color: #020817;
+  color: var(--foreground);
   font-size: 14px;
   padding: 8px 12px;
-  background: #ffffff;
+  background: var(--color-base-background);
   line-height: 20px;
   margin-top: 8px;
   width: 100%;

@@ -8,7 +8,7 @@ const StyledLabel = styled.label`
   line-height: 20px;
   margin-bottom: 4px;
   display: block;
-  color: #020817;
+  color: var(--foreground);
   font-size: 14px;
   font-weight: 500;
 `;

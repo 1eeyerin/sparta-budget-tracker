@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { hexToRGB } from '@/utils';
+import { hexToRGB } from '@/styles/utils';
 
 export const colors = {
   primary: '#0f172a',
@@ -11,8 +11,9 @@ export const colors = {
   border: '#e2e8f0',
   muted: '#f1f5f9',
   mutedForeground: '#64748b',
-  card: '#ffffff',
   shadow: '#000000',
+  foreground: '#020817',
+  baseBackground: '#ffffff',
 };
 
 export const constants = css`
@@ -26,8 +27,9 @@ export const constants = css`
     --color-border: ${colors.border};
     --color-muted: ${colors.muted};
     --color-muted-foreground: ${colors.mutedForeground};
-    --color-card: ${colors.card};
     --color-shadow: ${colors.shadow};
-    --color-shadow-sm: 0 0 1px 0 ${hexToRGB(colors.shadow, 0.05)};
+    --color-foreground: ${colors.foreground};
+    --color-base-background: ${colors.baseBackground};
+    --shadow-sm: 0 0 1px 0 ${hexToRGB(colors.shadow, 0.05)};
   }
 `;

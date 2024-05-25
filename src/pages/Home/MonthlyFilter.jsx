@@ -28,10 +28,10 @@ const StyledForm = styled.ul`
   display: grid;
   gap: 32px;
   padding: 24px;
-  background-color: var(--color-card);
+  background-color: var(--color-base-background);
   border-radius: 8px;
   border: 1px solid var(--color-border);
-  box-shadow: var(--color-shadow-sm);
+  box-shadow: var(--shadow-sm);
 `;
 
 export default MonthlyFilter;
