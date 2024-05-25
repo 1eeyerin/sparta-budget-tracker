@@ -17,7 +17,7 @@ const ExpenseTable = ({ posts }) => {
   return (
     <StyledSection>
       <StyledTable>
-        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableCaption>A list of your most recent expense books.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>번호</TableHead>
