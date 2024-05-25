@@ -2,105 +2,169 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    "plugin:react-hooks/recommended",
-    "plugin:import/recommended",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+    'plugin:import/recommended',
+    'plugin:prettier/recommended',
+    'airbnb',
+    'airbnb/hooks',
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
-  parserOptions: { ecmaVersion: "latest", sourceType: "module" },
+  plugins: [
+    'react-refresh',
+    //import 관련 규칙 추가
+    'import',
+    'unused-imports',
+    //react 관련 규칙 추가
+    'react',
+    'jsx-a11y',
+    'prettier',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.js'],
+  parserOptions: {
+    ecmaFeatures: {
+      //jsx 구문 파싱할 수 있도록 설정
+      jsx: true,
+    },
+    // 사용할 ECMA 버전 지정
+    ecmaVersion: 'latest',
+    // 모듈 형식을 사용한다는 것을 명시
+    sourceType: 'module',
+  },
   settings: {
-    react: { version: "18.2" },
-    "import/resolver": {
+    react: { version: '18.2' },
+    'import/resolver': {
       node: {
-        paths: ["src"],
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        paths: ['src'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
       alias: {
-        map: [["@", "./src"]],
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        map: [['@', './src']],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
   },
-  plugins: ["react-refresh", "import", "unused-imports"],
   rules: {
-    "react/jsx-no-target-blank": "off",
-    "react/prop-types": "off", // prop-types 맞추라는 경고 무시
-    "unused-imports/no-unused-imports": "error", //안 쓰는 import 에러 처리
-    "import/no-named-as-default": "off", // eslint-plugin-import 사용으로 인한 styled-components 불러오기시 에러 발생
-    "react-refresh/only-export-components": [
-      "warn",
+    // 함수 컴포넌트를 화살표 함수 형태로 정의하도록 규칙 설정
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
+    // 변수나 함수를 선언하기 전에 사용하는 것을 허용
+    'no-use-before-define': 'off',
+    // 기본 export를 선호하는 규칙 비활성화
+    'import/prefer-default-export': 'off',
+    // JSX props의 spreading을 허용함
+    'react/jsx-props-no-spreading': 'off',
+    // 이 프로젝트 한정 구현 조건에 alert를 사용하기 때문에 사용
+    'no-restricted-globals': 'off',
+    // 이 프로젝트 한정 구현 조건에 alert를 사용하기 때문에 사용
+    'no-alert': 'off',
+    'react/jsx-no-target-blank': 'off',
+    'react/jsx-wrap-multilines': 'off',
+    // export {default} 사용
+    'no-restricted-exports': 'off',
+    // 화살표 함수의 본문이 단일 표현식일때 불필요한 중괄호 및 리턴문을 쓰면 에러가 나기 때문에 off.
+    // 만약 이걸 켜려면, implicit-arrow-linebreak를 꺼줘야합니다 ^___^..
+    'arrow-body-style': 'off',
+    // JSX 요소 내에서 한 줄에 하나의 표현식만 허용하는 규칙을 비활성화
+    'react/jsx-one-expression-per-line': 'off',
+    // jsx는 원래 import React를 해줬어야하나, 이젠 React17에서 자동으로 import되므로 필요하지 않음.
+    'react/react-in-jsx-scope': 'off',
+    // 객체 중괄호 내부에서 줄바꿈을 강제하지 않음
+    'object-curly-newline': 'off',
+    // prop-types 맞추라는 경고 무시
+    'react/prop-types': 'off',
+    //안 쓰는 import 에러 처리
+    'unused-imports/no-unused-imports': 'error',
+    // eslint-plugin-import 사용으로 인한 styled-components 불러오기시 에러 발생
+    'import/no-named-as-default': 'off',
+    'react-refresh/only-export-components': [
+      'warn',
       { allowConstantExport: true },
     ],
-    "import/order": [
-      "error",
+    'import/order': [
+      'error',
       {
         groups: [
-          "builtin", // 내장 모듈
-          "external", // npm을 통해 설치된 외부 모듈
-          "internal", // 프로젝트 내부에서 설정한 경로 별칭을 사용하는 모듈
-          "parent", // 상위 디렉토리에 있는 모듈
-          "sibling", // 같은 디렉토리에 있는 모듈
-          "index", // 같은 디렉토리의 index 파일
+          // 내장 모듈
+          'builtin',
+          // npm을 통해 설치된 외부 모듈
+          'external',
+          // 프로젝트 내부에서 설정한 경로 별칭을 사용하는 모듈
+          'internal',
+          // 상위 디렉토리에 있는 모듈
+          'parent',
+          // 같은 디렉토리에 있는 모듈
+          'sibling',
+          // 같은 디렉토리의 index 파일
+          'index',
         ],
         pathGroups: [
           {
-            pattern: "react*",
-            group: "external",
-            position: "before",
+            pattern: 'react*',
+            group: 'external',
+            position: 'before',
           },
           {
-            pattern: "@/hooks{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/hooks{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/schemas{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/schemas{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/utils{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/utils{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/constants{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/constants{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/pages{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/pages{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/components{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/components{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/styles{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/styles{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/svg{,/**}",
-            group: "internal",
-            position: "after",
+            pattern: '@/svg{,/**}',
+            group: 'internal',
+            position: 'after',
           },
           {
-            pattern: "@/**",
-            group: "internal",
-            position: "after",
+            pattern: '@/**',
+            group: 'internal',
+            position: 'after',
           },
         ],
-        pathGroupsExcludedImportTypes: [], // pathGroups 규칙을 적용하지 않을 import 타입을 설정
-        "newlines-between": "never", // 임포트 그룹 사이 개행 여부
+        // pathGroups 규칙을 적용하지 않을 import 타입을 설정
+        pathGroupsExcludedImportTypes: [],
+        // 임포트 그룹 사이 개행 여부
+        'newlines-between': 'never',
         alphabetize: {
-          order: "asc", // 알파벳 순서대로 정렬
-          caseInsensitive: true, // 대소문자 구분 없이 정렬
+          // 알파벳 순서대로 정렬
+          order: 'asc',
+          // 대소문자 구분 없이 정렬
+          caseInsensitive: true,
         },
       },
     ],

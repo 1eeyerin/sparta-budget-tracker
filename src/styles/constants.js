@@ -1,18 +1,18 @@
-import { css } from "styled-components";
-import { hexToRGB } from "@/utils";
+import { css } from 'styled-components';
+import { hexToRGB } from '@/utils';
 
 export const colors = {
-  primary: "#0f172a",
-  primaryForeground: "#ffffff",
-  destructive: "#ef4444",
-  destructiveForeground: "#ffffff",
-  secondary: "#f1f5f9",
-  secondaryForeground: "#0f172a",
-  border: "#e2e8f0",
-  muted: "#f1f5f9",
-  mutedForeground: "#64748b",
-  card: "#ffffff",
-  shadow: "#000000",
+  primary: '#0f172a',
+  primaryForeground: '#ffffff',
+  destructive: '#ef4444',
+  destructiveForeground: '#ffffff',
+  secondary: '#f1f5f9',
+  secondaryForeground: '#0f172a',
+  border: '#e2e8f0',
+  muted: '#f1f5f9',
+  mutedForeground: '#64748b',
+  card: '#ffffff',
+  shadow: '#000000',
 };
 
 export const constants = css`

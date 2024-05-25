@@ -1,5 +1,5 @@
-import { forwardRef } from "react";
-import styled from "styled-components";
+import { forwardRef } from 'react';
+import styled from 'styled-components';
 
 const Input = forwardRef(({ className, type, ...props }, ref) => {
   return <StyledInput type={type} className={className} ref={ref} {...props} />;
@@ -17,6 +17,6 @@ const StyledInput = styled.input`
   width: 100%;
 `;
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export { Input };

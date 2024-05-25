@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
 export const ellipsisStyle = (line = 1) => css`
   overflow: hidden;

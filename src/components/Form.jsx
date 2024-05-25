@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ellipsisStyle } from "@/styles/utils";
+import styled from 'styled-components';
+import { ellipsisStyle } from '@/styles/utils';
 
 const FormField = ({ render, name, message, ...props }) => {
   return render({
@@ -15,7 +15,7 @@ const FormItem = ({ children, ...props }) => {
   return <div {...props}>{children}</div>;
 };
 
-const FormMessage = ({ message = "" }) => {
+const FormMessage = ({ message = '' }) => {
   return <StyledMessage>{message}</StyledMessage>;
 };
 

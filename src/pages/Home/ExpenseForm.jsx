@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import useForm from "@/hooks/useForm";
-import { postSchema } from "@/schemas/postSchema";
-import { CATEGORIES } from "@/constants";
-import { Button } from "@/components/Button";
-import { FormField, FormItem, FormMessage } from "@/components/Form";
-import { Input } from "@/components/Input";
-import { Label } from "@/components/Label";
-import { Select, SelectOption } from "@/components/Select";
+import styled from 'styled-components';
+import useForm from '@/hooks/useForm';
+import postSchema from '@/schemas/postSchema';
+import { CATEGORIES } from '@/constants';
+import { Button } from '@/components/Button';
+import { FormField, FormItem, FormMessage } from '@/components/Form';
+import { Input } from '@/components/Input';
+import { Label } from '@/components/Label';
+import { Select, SelectOption } from '@/components/Select';
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
@@ -14,7 +14,11 @@ const resolver = (formValues) => {
 };
 
 const ExpenseForm = ({ onSubmitForm }) => {
-  const { handleSubmit, formRef, message } = useForm({
+  const {
+    handleSubmit,
+    formRef,
+    message: formMessage,
+  } = useForm({
     resolver,
     onSubmit: onSubmitForm,
   });
@@ -24,7 +28,7 @@ const ExpenseForm = ({ onSubmitForm }) => {
       <StyledContainer>
         <FormField
           name="date"
-          message={message}
+          message={formMessage}
           render={({ id, htmlFor, name, message }) => (
             <FormFieldItem>
               <Label htmlFor={htmlFor}>날짜</Label>
@@ -35,13 +39,13 @@ const ExpenseForm = ({ onSubmitForm }) => {
         />
         <FormField
           name="category"
-          message={message}
+          message={formMessage}
           render={({ id, htmlFor, name, message }) => (
             <FormFieldItem>
               <Label htmlFor={htmlFor}>지출 항목</Label>
               <Select id={id} name={name} title="지출 항목">
-                {CATEGORIES.map(({ id, name }) => (
-                  <SelectOption key={id} value={id} text={name} />
+                {CATEGORIES.map(({ id: cateId, name: cateName }) => (
+                  <SelectOption key={cateId} value={cateId} text={cateName} />
                 ))}
               </Select>
               <FormMessage message={message} />
@@ -50,7 +54,7 @@ const ExpenseForm = ({ onSubmitForm }) => {
         />
         <FormField
           name="price"
-          message={message}
+          message={formMessage}
           render={({ id, htmlFor, name, message }) => (
             <FormFieldItem>
               <Label htmlFor={htmlFor}>지출 금액</Label>
@@ -66,7 +70,7 @@ const ExpenseForm = ({ onSubmitForm }) => {
         />
         <FormField
           name="description"
-          message={message}
+          message={formMessage}
           render={({ id, htmlFor, name, message }) => (
             <FormFieldItem>
               <Label htmlFor={htmlFor}>지출 내용</Label>

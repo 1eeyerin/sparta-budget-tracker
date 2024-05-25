@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { hexToRGB } from "@/utils";
-import { colors } from "@/styles/constants";
+import styled from 'styled-components';
+import { hexToRGB } from '@/utils';
+import { colors } from '@/styles/constants';
 
 const Table = styled.table`
   position: relative;
