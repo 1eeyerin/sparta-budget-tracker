@@ -1,7 +1,15 @@
+import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
+import PostsProvider from '@/context/PostsProvider';
 
-const Container = ({ children }) => {
-  return <StyledContainer>{children}</StyledContainer>;
+const Container = () => {
+  return (
+    <PostsProvider>
+      <StyledContainer>
+        <Outlet />
+      </StyledContainer>
+    </PostsProvider>
+  );
 };
 
 const StyledContainer = styled.main`

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 import useForm from '@/hooks/useForm';
+import { useSetPosts } from '@/hooks/usePosts';
 import postSchema from '@/schemas/postSchema';
 import { CATEGORIES } from '@/constants';
 import { Button } from '@/components/Button';
@@ -13,14 +15,20 @@ const resolver = (formValues) => {
   return success ? {} : error.flatten().fieldErrors;
 };
 
-const ExpenseForm = ({ onSubmitForm }) => {
+const ExpenseForm = () => {
+  const setPosts = useSetPosts();
+
+  const onSubmit = (values) => {
+    setPosts((prevPosts) => [...prevPosts, { ...values, id: uuidv4() }]);
+  };
+
   const {
     handleSubmit,
     formRef,
     message: formMessage,
   } = useForm({
     resolver,
-    onSubmit: onSubmitForm,
+    onSubmit,
   });
 
   return (

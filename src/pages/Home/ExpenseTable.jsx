@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { usePosts } from '@/hooks/usePosts';
+import { useSelectedMonth } from '@/hooks/useSelectedMonth';
 import { numberWithCommas } from '@/utils';
 import { CATEGORIES } from '@/constants';
 import { Badge } from '@/components/Badge';
@@ -13,7 +15,23 @@ import {
   TableRow,
 } from '@/components/Table';
 
-const ExpenseTable = ({ posts }) => {
+const getPosts = (month, posts) => {
+  if (month === 0) return posts;
+
+  return posts
+    .filter((post) => {
+      const postDate = new Date(post.date);
+      return postDate.getMonth() + 1 === month;
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+};
+
+const ExpenseTable = () => {
+  const posts = usePosts();
+  const month = useSelectedMonth();
+
+  const filteredPosts = getPosts(month, posts);
+
   return (
     <StyledSection>
       <StyledTable>
@@ -28,7 +46,7 @@ const ExpenseTable = ({ posts }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {posts.map((post, index) => {
+          {filteredPosts.map((post, index) => {
             const categoryNames = CATEGORIES.find(
               (category) => category.id === post.category,
             );

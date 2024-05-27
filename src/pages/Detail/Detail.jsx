@@ -1,14 +1,10 @@
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import DetailForm from './DetailForm';
 
-const Detail = ({ getPost, onUpdate, onDelete }) => {
-  const { id } = useParams();
-  const post = getPost(id);
-
+const Detail = () => {
   return (
     <StyledSection>
-      <DetailForm post={post} onUpdate={onUpdate} onDelete={onDelete} />
+      <DetailForm />
     </StyledSection>
   );
 };

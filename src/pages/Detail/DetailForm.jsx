@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useForm from '@/hooks/useForm';
+import { usePosts, useSetPosts } from '@/hooks/usePosts';
 import postSchema from '@/schemas/postSchema';
 import { CATEGORIES } from '@/constants';
 import { Button } from '@/components/Button';
@@ -14,8 +15,26 @@ const resolver = (formValues) => {
   return success ? {} : error.flatten().fieldErrors;
 };
 
-const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
+const DetailForm = () => {
+  const { id: paramsId } = useParams();
   const navigate = useNavigate();
+
+  const setPosts = useSetPosts();
+  const posts = usePosts() || [];
+  const post = posts.find((item) => item.id === paramsId);
+
+  const onUpdate = (values) => {
+    setPosts((prevPosts) => {
+      return prevPosts.map((item) => (item.id === values.id ? values : item));
+    });
+  };
+
+  const onDelete = () => {
+    if (!confirm('삭제하실건가요? 🥲')) return;
+
+    setPosts((prevPosts) => prevPosts.filter((item) => item.id !== paramsId));
+    navigate(-1);
+  };
 
   const {
     handleSubmit,
@@ -28,6 +47,8 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
       onUpdate({ ...values, id: post.id });
     },
   });
+
+  if (!post) return null;
 
   return (
     <StyledForm ref={formRef} onSubmit={handleSubmit}>
@@ -103,15 +124,7 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
       />
       <StyledButtonGroup>
         <Button type="submit">수정하기</Button>
-        <Button
-          variant="destructive"
-          onClick={() => {
-            if (!confirm('삭제하실건가요? 🥲')) return;
-
-            navigate(-1);
-            onDelete(post.id);
-          }}
-        >
+        <Button variant="destructive" onClick={onDelete}>
           삭제하기
         </Button>
         <Button variant="secondary" onClick={() => navigate(-1)}>

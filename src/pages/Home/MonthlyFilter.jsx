@@ -1,7 +1,21 @@
 import styled from 'styled-components';
+import {
+  useSelectedMonth,
+  useSetSelectedMonth,
+} from '@/hooks/useSelectedMonth';
 import { Button } from '@/components/Button';
 
-const MonthlyFilter = ({ onUpdate, month }) => {
+const MonthlyFilter = () => {
+  const month = useSelectedMonth();
+  const setMonth = useSetSelectedMonth();
+
+  const onUpdate = (event) => {
+    const dataMonth = parseInt(event.target.dataset.month, 10);
+    if (!dataMonth) return;
+
+    setMonth(dataMonth);
+  };
+
   return (
     <StyledForm onClick={onUpdate}>
       {Array.from({ length: 12 }).map((_, index) => {
