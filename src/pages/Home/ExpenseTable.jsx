@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { usePosts } from '@/hooks/usePosts';
-import { useSelectedMonth } from '@/hooks/useSelectedMonth';
+import useShallowEqualSelector from '@/hooks/useShallowEqualSelector';
 import { numberWithCommas } from '@/utils';
 import { CATEGORIES } from '@/constants';
 import { Badge } from '@/components/Badge';
@@ -17,20 +17,20 @@ import {
 
 const getPosts = (month, posts) => {
   if (month === 0) return posts;
-
   return posts
-    .filter((post) => {
-      const postDate = new Date(post.date);
-      return postDate.getMonth() + 1 === month;
-    })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+    .filter((post) => dayjs(post.date).month() + 1 === month)
+    .sort((a, b) => dayjs(b.date) - dayjs(a.date));
 };
 
 const ExpenseTable = () => {
-  const posts = usePosts();
-  const month = useSelectedMonth();
+  const { lists, selectedMonth } = useShallowEqualSelector(({ posts }) => {
+    return {
+      lists: posts.posts,
+      selectedMonth: posts.selectedMonth,
+    };
+  });
 
-  const filteredPosts = getPosts(month, posts);
+  const filteredPosts = getPosts(selectedMonth, lists);
 
   return (
     <StyledSection>

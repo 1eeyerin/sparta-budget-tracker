@@ -2,14 +2,14 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
+    'airbnb',
+    'airbnb/hooks',
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'plugin:import/recommended',
     'plugin:prettier/recommended',
-    'airbnb',
-    'airbnb/hooks',
   ],
   plugins: [
     'react-refresh',
@@ -54,6 +54,11 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    // redux immer를 통해 불변성 관리하는 경우
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsFor: ['state'] },
+    ],
     // 변수나 함수를 선언하기 전에 사용하는 것을 허용
     'no-use-before-define': 'off',
     // 기본 export를 선호하는 규칙 비활성화
@@ -68,11 +73,6 @@ module.exports = {
     'react/jsx-wrap-multilines': 'off',
     // export {default} 사용
     'no-restricted-exports': 'off',
-    // 화살표 함수의 본문이 단일 표현식일때 불필요한 중괄호 및 리턴문을 쓰면 에러가 나기 때문에 off.
-    // 만약 이걸 켜려면, implicit-arrow-linebreak를 꺼줘야합니다 ^___^..
-    'arrow-body-style': 'off',
-    // JSX 요소 내에서 한 줄에 하나의 표현식만 허용하는 규칙을 비활성화
-    'react/jsx-one-expression-per-line': 'off',
     // jsx는 원래 import React를 해줬어야하나, 이젠 React17에서 자동으로 import되므로 필요하지 않음.
     'react/react-in-jsx-scope': 'off',
     // 객체 중괄호 내부에서 줄바꿈을 강제하지 않음
