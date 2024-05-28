@@ -1,19 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import {
-  useSelectedMonth,
-  useSetSelectedMonth,
-} from '@/hooks/useSelectedMonth';
 import { Button } from '@/components/Button';
+import { updateSelectedMonth } from '@/redux/slices/postsSlice';
 
 const MonthlyFilter = () => {
-  const month = useSelectedMonth();
-  const setMonth = useSetSelectedMonth();
+  const dispatch = useDispatch();
+  const month = useSelector(({ posts }) => posts.selectedMonth);
 
   const onUpdate = (event) => {
     const dataMonth = parseInt(event.target.dataset.month, 10);
     if (!dataMonth) return;
 
-    setMonth(dataMonth);
+    dispatch(updateSelectedMonth(dataMonth));
   };
 
   return (

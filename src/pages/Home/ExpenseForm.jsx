@@ -1,7 +1,7 @@
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import useForm from '@/hooks/useForm';
-import { useSetPosts } from '@/hooks/usePosts';
 import postSchema from '@/schemas/postSchema';
 import { CATEGORIES } from '@/constants';
 import { Button } from '@/components/Button';
@@ -9,6 +9,7 @@ import { FormField, FormItem, FormMessage } from '@/components/Form';
 import { Input } from '@/components/Input';
 import { Label } from '@/components/Label';
 import { Select, SelectOption } from '@/components/Select';
+import { addPost } from '@/redux/slices/postsSlice';
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
@@ -16,10 +17,10 @@ const resolver = (formValues) => {
 };
 
 const ExpenseForm = () => {
-  const setPosts = useSetPosts();
+  const dispatch = useDispatch();
 
   const onSubmit = (values) => {
-    setPosts((prevPosts) => [...prevPosts, { ...values, id: uuidv4() }]);
+    dispatch(addPost({ ...values, id: uuidv4() }));
   };
 
   const {

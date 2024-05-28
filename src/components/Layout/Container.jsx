@@ -1,14 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-import PostsProvider from '@/context/PostsProvider';
 
 const Container = () => {
   return (
-    <PostsProvider>
-      <StyledContainer>
-        <Outlet />
-      </StyledContainer>
-    </PostsProvider>
+    <StyledContainer>
+      <Outlet />
+    </StyledContainer>
   );
 };
 

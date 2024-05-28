@@ -1,7 +1,7 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useForm from '@/hooks/useForm';
-import { usePosts, useSetPosts } from '@/hooks/usePosts';
 import postSchema from '@/schemas/postSchema';
 import { CATEGORIES } from '@/constants';
 import { Button } from '@/components/Button';
@@ -9,6 +9,7 @@ import { FormField, FormItem, FormMessage } from '@/components/Form';
 import { Input } from '@/components/Input';
 import { Label } from '@/components/Label';
 import { Select, SelectOption } from '@/components/Select';
+import { deletePost, updatePost } from '@/redux/slices/postsSlice';
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
@@ -18,21 +19,19 @@ const resolver = (formValues) => {
 const DetailForm = () => {
   const { id: paramsId } = useParams();
   const navigate = useNavigate();
-
-  const setPosts = useSetPosts();
-  const posts = usePosts() || [];
-  const post = posts.find((item) => item.id === paramsId);
+  const dispatch = useDispatch();
+  const post = useSelector(({ posts }) =>
+    posts.posts.find((item) => item.id === paramsId),
+  );
 
   const onUpdate = (values) => {
-    setPosts((prevPosts) => {
-      return prevPosts.map((item) => (item.id === values.id ? values : item));
-    });
+    dispatch(updatePost(values));
   };
 
   const onDelete = () => {
     if (!confirm('삭제하실건가요? 🥲')) return;
 
-    setPosts((prevPosts) => prevPosts.filter((item) => item.id !== paramsId));
+    dispatch(deletePost(paramsId));
     navigate(-1);
   };
 
