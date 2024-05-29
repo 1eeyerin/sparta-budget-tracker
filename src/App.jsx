@@ -28,7 +28,7 @@ const App = () => {
   }, [posts]);
 
   return (
-    <BrowserRouter basename="/sparta-expense-manager/">
+    <BrowserRouter>
       <Routes>
         <Route
           path="/"
