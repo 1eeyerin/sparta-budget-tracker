@@ -1,7 +1,12 @@
+import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Container = ({ children }) => {
-  return <StyledContainer>{children}</StyledContainer>;
+const Container = () => {
+  return (
+    <StyledContainer>
+      <Outlet />
+    </StyledContainer>
+  );
 };
 
 const StyledContainer = styled.main`

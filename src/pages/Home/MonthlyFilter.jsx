@@ -1,7 +1,19 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from '@/components/Button';
+import { updateSelectedMonth } from '@/redux/slices/postsSlice';
 
-const MonthlyFilter = ({ onUpdate, month }) => {
+const MonthlyFilter = () => {
+  const dispatch = useDispatch();
+  const month = useSelector(({ posts }) => posts.selectedMonth);
+
+  const onUpdate = (event) => {
+    const dataMonth = parseInt(event.target.dataset.month, 10);
+    if (!dataMonth) return;
+
+    dispatch(updateSelectedMonth(dataMonth));
+  };
+
   return (
     <StyledForm onClick={onUpdate}>
       {Array.from({ length: 12 }).map((_, index) => {

@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 import useForm from '@/hooks/useForm';
 import postSchema from '@/schemas/postSchema';
 import { CATEGORIES } from '@/constants';
@@ -7,20 +9,27 @@ import { FormField, FormItem, FormMessage } from '@/components/Form';
 import { Input } from '@/components/Input';
 import { Label } from '@/components/Label';
 import { Select, SelectOption } from '@/components/Select';
+import { addPost } from '@/redux/slices/postsSlice';
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
   return success ? {} : error.flatten().fieldErrors;
 };
 
-const ExpenseForm = ({ onSubmitForm }) => {
+const ExpenseForm = () => {
+  const dispatch = useDispatch();
+
+  const onSubmit = (values) => {
+    dispatch(addPost({ ...values, id: uuidv4() }));
+  };
+
   const {
     handleSubmit,
     formRef,
     message: formMessage,
   } = useForm({
     resolver,
-    onSubmit: onSubmitForm,
+    onSubmit,
   });
 
   return (

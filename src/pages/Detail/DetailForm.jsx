@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useForm from '@/hooks/useForm';
 import postSchema from '@/schemas/postSchema';
@@ -8,14 +9,31 @@ import { FormField, FormItem, FormMessage } from '@/components/Form';
 import { Input } from '@/components/Input';
 import { Label } from '@/components/Label';
 import { Select, SelectOption } from '@/components/Select';
+import { deletePost, updatePost } from '@/redux/slices/postsSlice';
 
 const resolver = (formValues) => {
   const { success, error } = postSchema.safeParse(formValues);
   return success ? {} : error.flatten().fieldErrors;
 };
 
-const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
+const DetailForm = () => {
+  const { id: paramsId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const post = useSelector(({ posts }) =>
+    posts.posts.find((item) => item.id === paramsId),
+  );
+
+  const onUpdate = (values) => {
+    dispatch(updatePost(values));
+  };
+
+  const onDelete = () => {
+    if (!confirm('삭제하실건가요? 🥲')) return;
+
+    dispatch(deletePost(paramsId));
+    navigate(-1);
+  };
 
   const {
     handleSubmit,
@@ -28,6 +46,8 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
       onUpdate({ ...values, id: post.id });
     },
   });
+
+  if (!post) return null;
 
   return (
     <StyledForm ref={formRef} onSubmit={handleSubmit}>
@@ -103,15 +123,7 @@ const DetailForm = ({ post = {}, onUpdate, onDelete }) => {
       />
       <StyledButtonGroup>
         <Button type="submit">수정하기</Button>
-        <Button
-          variant="destructive"
-          onClick={() => {
-            if (!confirm('삭제하실건가요? 🥲')) return;
-
-            navigate(-1);
-            onDelete(post.id);
-          }}
-        >
+        <Button variant="destructive" onClick={onDelete}>
           삭제하기
         </Button>
         <Button variant="secondary" onClick={() => navigate(-1)}>
